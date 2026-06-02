@@ -11,13 +11,20 @@
   الوقت | اسم الضيف | الاسم المعروض | الحضور | عدد المرافقين | إجمالي الحضور | وسيلة التواصل | الرسالة | وقت الإرسال
 */
 
-const SPREADSHEET_ID = "PASTE_YOUR_GOOGLE_SHEET_ID_HERE";
+const SPREADSHEET_ID = "165gK1c9kkK70X0mdN5KglCGQEZcqDZ00PIKg0k-oshI";
 const SHEET_NAME = "RSVPs";
 
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+
+    const sheet = SpreadsheetApp
+      .openById(SPREADSHEET_ID)
+      .getSheetByName(SHEET_NAME);
+
+    if (!sheet) {
+      throw new Error("Sheet tab named RSVPs was not found.");
+    }
 
     sheet.appendRow([
       new Date(),
@@ -34,6 +41,7 @@ function doPost(e) {
     return ContentService
       .createTextOutput(JSON.stringify({ ok: true }))
       .setMimeType(ContentService.MimeType.JSON);
+
   } catch (error) {
     return ContentService
       .createTextOutput(JSON.stringify({ ok: false, error: String(error) }))
