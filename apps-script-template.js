@@ -40,21 +40,3 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
-
-function testSave() {
-  const sheet = SpreadsheetApp
-    .openById("165gK1c9kkK70X0mdN5KglCGQEZcqDZ00PIKg0k-oshI")
-    .getSheetByName("RSVPs");
-
-  sheet.appendRow([
-    new Date(),
-    "TEST",
-    "TEST DISPLAY",
-    "yes",
-    "2",
-    "3",
-    "test contact",
-    "test message",
-    new Date().toISOString()
-  ]);
-}
