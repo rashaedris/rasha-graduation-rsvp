@@ -1,18 +1,14 @@
 /*
+  Google Apps Script template to save RSVPs to Google Sheets.
   كود Google Apps Script لحفظ تأكيدات الحضور في Google Sheets.
 
-  الخطوات:
-  1. أنشئي Google Sheet جديد.
-  2. أنشئي ورقة داخل الملف باسم: RSVPs
-  3. ضعي هذه العناوين في الصف الأول:
-     الوقت | اسم الضيف | الاسم المعروض | الحضور | عدد المرافقين | وسيلة التواصل | الرسالة | وقت الإرسال
-  4. من Google Sheets اختاري: Extensions > Apps Script
-  5. الصقي هذا الكود.
-  6. ضعي رقم ملف Google Sheet مكان SPREADSHEET_ID.
-  7. اختاري: Deploy > New deployment > Web app
-     - Execute as: Me
-     - Who has access: Anyone
-  8. انسخي رابط Web App وضعيه في RSVP_ENDPOINT داخل ملف script.js.
+  Google Sheet tab name must be: RSVPs
+
+  Row 1 headers:
+  Timestamp | Guest Name | Display Name | Attendance | Additional Guests | Total People | Contact | Message | Submitted At
+
+  عناوين الصف الأول:
+  الوقت | اسم الضيف | الاسم المعروض | الحضور | عدد المرافقين | إجمالي الحضور | وسيلة التواصل | الرسالة | وقت الإرسال
 */
 
 const SPREADSHEET_ID = "PASTE_YOUR_GOOGLE_SHEET_ID_HERE";
@@ -28,7 +24,8 @@ function doPost(e) {
       data.guestName || "",
       data.displayName || "",
       data.attendance || "",
-      data.plusOnes || "0",
+      data.additionalGuests || "0",
+      data.totalPeople || "0",
       data.contact || "",
       data.message || "",
       data.submittedAt || ""
